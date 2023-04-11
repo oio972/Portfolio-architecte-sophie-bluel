@@ -125,19 +125,39 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-.bloccategories {
+.classbloccategories {
 	display: flex;
 	justify-content: space-around;
 	width: 450px;
 	margin: auto;
 }
-.objets {
+.classobjets {
 	border: 1px solid #1D6154;
 	border-radius: 60px;
 	padding: 5px;
 	margin-bottom: 30px;
 }
-.objets:hover {
+.classobjets:hover {
+	background: #1D6154;
+	color: white;
+}
+.classappartements {
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	padding: 5px;
+	margin-bottom: 30px;
+}
+.classappartements:hover {
+	background: #1D6154;
+	color: white;
+}
+.classhotel {
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	padding: 5px;
+	margin-bottom: 30px;
+}
+.classhotel:hover {
 	background: #1D6154;
 	color: white;
 }

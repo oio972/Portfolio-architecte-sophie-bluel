@@ -1,39 +1,43 @@
 //les categories
 //intercepter l'element
 const categories = document.getElementById("categorie")
+const categoriesList = document.createElement("div")
+    categoriesList.classList.add('classbloccategories')
+    categories.appendChild(categoriesList)
+    const tous = document.createElement('p')
+    tous.innerHTML = 'Tous'
+    tous.classList.add('classobjets')
+    tous.setAttribute('id', 'idtous')
+    categoriesList.appendChild(tous)
 //fetch get recuperer
 fetch('http://localhost:5678/api/categories')
 //on veut recuperer une response en json
   .then(Response => Response.json())
   .then(data => {
-    const categoriesList = document.createElement("div")
-    categoriesList.classList.add('bloccategories')
-    categories.appendChild(categoriesList)
+    //boucle
     data.forEach(category => {
-      const tous = document.createElement('p')
-      //tous.innerHTML = 'tous'
-      categoriesList.appendChild(tous)
-      const objets = document.createElement("p")
-      objets.classList.add('objets')
-      objets.textContent = category.name
-      categoriesList.appendChild(objets)
-      const appartements = document.createElement("p")
-       //appartements.classList.add('objets', 'objets:hover')
-      //appartements.textContent = category.name
-      categoriesList.appendChild(appartements)
-      const hotelsrestaurants = document.createElement("p")
-      //hotelsrestaurants.classList.add('objets', 'objets:hover')
-      //hotelsrestaurants.textContent = category.name
-      categoriesList.appendChild(hotelsrestaurants)
-    })
-
-   
-    
+      const divcategorie = document.createElement("p")
+      if(category.name === "Objets"){
+        divcategorie.classList.add('classobjets')
+        divcategorie.setAttribute('id','idobjets')
+        divcategorie.textContent = category.name
+        categoriesList.appendChild(divcategorie)
+      }else if(category.name === "Appartements"){
+        divcategorie.classList.add('classappartements')
+        divcategorie.setAttribute('id' , 'idappartements')
+        divcategorie.textContent = category.name
+        categoriesList.appendChild(divcategorie)
+      }else if(category.name === "Hotels & restaurants"){
+        divcategorie.classList.add('classhotel')
+        divcategorie.setAttribute('id' , 'idhotel')
+        divcategorie.textContent = category.name
+        categoriesList.appendChild(divcategorie)
+      }
+  })
   })
   .catch(error => {
     console.error(error)
   })
-
 
 
 //les images
@@ -65,29 +69,130 @@ fetch('http://localhost:5678/api/works')
     console.error(error)
   })
 
-
- /*
-  //les images
-const works = document.getElementById("work")
-fetch('http://localhost:5678/api/works')
-  .then(response => response.json())
-  .then(data => {
-    const divworks = document.createElement("div")
-    divworks.classList.add("gallery")
-    works.appendChild(divworks)
-    data.forEach(work => {
-      const imageElement = document.createElement("img")
-      imageElement.src = work.imageUrl
-      divworks.appendChild(imageElement)
-      const nameElement = document.createElement("p")
-      nameElement.textContent = work.title
-      divworks.appendChild(nameElement)
-      const descriptionElement  = document.createElement("p")
-      descriptionElement .textContent = work.name
-      divworks.appendChild(descriptionElement)
-    })
+  const filtres = [
+    {
+      "id": 1,
+      "title": "Abajour Tahina",
+      "imageUrl": "http://localhost:5678/images/abajour-tahina1651286843956.png",
+      "categoryId": 1,
+      "userId": 1,
+      "category": {
+        "id": 1,
+        "name": "Objets"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Appartement Paris V",
+      "imageUrl": "http://localhost:5678/images/appartement-paris-v1651287270508.png",
+      "categoryId": 2,
+      "userId": 1,
+      "category": {
+        "id": 2,
+        "name": "Appartements"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Restaurant Sushisen - Londres",
+      "imageUrl": "http://localhost:5678/images/restaurant-sushisen-londres1651287319271.png",
+      "categoryId": 3,
+      "userId": 1,
+      "category": {
+        "id": 3,
+        "name": "Hotels & restaurants"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Villa “La Balisiere” - Port Louis",
+      "imageUrl": "http://localhost:5678/images/la-balisiere1651287350102.png",
+      "categoryId": 2,
+      "userId": 1,
+      "category": {
+        "id": 2,
+        "name": "Appartements"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Structures Thermopolis",
+      "imageUrl": "http://localhost:5678/images/structures-thermopolis1651287380258.png",
+      "categoryId": 1,
+      "userId": 1,
+      "category": {
+        "id": 1,
+        "name": "Objets"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Appartement Paris X",
+      "imageUrl": "http://localhost:5678/images/appartement-paris-x1651287435459.png",
+      "categoryId": 2,
+      "userId": 1,
+      "category": {
+        "id": 2,
+        "name": "Appartements"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Pavillon “Le coteau” - Cassis",
+      "imageUrl": "http://localhost:5678/images/le-coteau-cassis1651287469876.png",
+      "categoryId": 2,
+      "userId": 1,
+      "category": {
+        "id": 2,
+        "name": "Appartements"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Villa Ferneze - Isola d’Elba",
+      "imageUrl": "http://localhost:5678/images/villa-ferneze1651287511604.png",
+      "categoryId": 2,
+      "userId": 1,
+      "category": {
+        "id": 2,
+        "name": "Appartements"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Appartement Paris XVIII",
+      "imageUrl": "http://localhost:5678/images/appartement-paris-xviii1651287541053.png",
+      "categoryId": 2,
+      "userId": 1,
+      "category": {
+        "id": 2,
+        "name": "Appartements"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Bar “Lullaby” - Paris",
+      "imageUrl": "http://localhost:5678/images/bar-lullaby-paris1651287567130.png",
+      "categoryId": 3,
+      "userId": 1,
+      "category": {
+        "id": 3,
+        "name": "Hotels & restaurants"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Hotel First Arte - New Delhi",
+      "imageUrl": "http://localhost:5678/images/hotel-first-arte-new-delhi1651287605585.png",
+      "categoryId": 3,
+      "userId": 1,
+      "category": {
+        "id": 3,
+        "name": "Hotels & restaurants"
+      }
+    }
+  ]
+  let idobjet = document.getElementById('idobjets')
+  idobjet.addEventListener('click', ()=>{
+    idobjet.style.color = 'red'
   })
-  .catch(error => {
-    console.error(error)
-  })
-*/
