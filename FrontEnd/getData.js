@@ -1,3 +1,4 @@
+
 //les categories
 //intercepter l'element
 const categories = document.getElementById("categorie")
@@ -21,16 +22,19 @@ fetch('http://localhost:5678/api/categories')
         divcategorie.classList.add('classobjets')
         divcategorie.setAttribute('id','idobjets')
         divcategorie.textContent = category.name
+        divcategorie.dataset = 'Objets'
         categoriesList.appendChild(divcategorie)
       }else if(category.name === "Appartements"){
         divcategorie.classList.add('classappartements')
         divcategorie.setAttribute('id' , 'idappartements')
+        divcategorie.dataset = 'Appartements'
         divcategorie.textContent = category.name
         categoriesList.appendChild(divcategorie)
       }else if(category.name === "Hotels & restaurants"){
         divcategorie.classList.add('classhotel')
-        divcategorie.setAttribute('id' , 'idhotel')
+        divcategorie.setAttribute('id' , 'idhotels')
         divcategorie.textContent = category.name
+        divcategorie.dataset = 'Hotels & restaurants'
         categoriesList.appendChild(divcategorie)
       }
   })
@@ -68,7 +72,7 @@ fetch('http://localhost:5678/api/works')
   .catch(error => {
     console.error(error)
   })
-
+/*
   const filtres = [
     {
       "id": 1,
@@ -192,7 +196,60 @@ fetch('http://localhost:5678/api/works')
       }
     }
   ]
-  let idobjet = document.getElementById('idobjets')
-  idobjet.addEventListener('click', ()=>{
-    idobjet.style.color = 'red'
+  */
+  /*
+//le fitre
+const idobjet = document.getElementById('idobjets')
+const afficheobjet = document.createElement('div')
+.setAttribute('id', 'afficheobjets')
+.document.getElementById('afficheobjets')
+afficheobjet.addEventListener('click', ()=>{
+
+})
+//fetch get recuperer
+fetch('http://localhost:5678/api/works')
+//on veut recuperer une response en json
+  .then(response => response.json())
+  .then(data => {
+    const dividobjet = document.createElement("div")
+    idobjet.appendChild(dividobjet)
+    data.forEach(work => {
+      const workItem = document.createElement("div")
+      const imagefiltre = document.createElement("img")
+      imageElement.src = work.imageUrl
+      workItem.appendChild(imagefiltre)
+      const nameElement = document.createElement("p")
+      nameElement.textContent = work.title
+      workItem.appendChild(nameElement)
+      const descriptionElement  = document.createElement("p")
+      descriptionElement .textContent = work.name
+      workItem.appendChild(descriptionElement)
+      divworks.appendChild(workItem)
+    })
   })
+  .catch(error => {
+    console.error(error)
+  })
+*/
+/*
+const idobjet = document.getElementById('idobjets')
+idobjet.addEventListener('click', () => {
+  fetch('http://localhost:5678/api/works')
+    .then(response => response.json())
+    .then(data => {
+      // Récupérer l'élément HTML dans lequel afficher les données
+      const afiicheobjet = document.getElementById('containerobjet')
+      // Créer un élément HTML pour chaque projet et les ajouter au container
+      data.forEach(project => {
+        const divobjet = document.createElement('div')
+        divobjet.innerHTML = 
+        `<h3>${project.title}</h3>
+        <p>${project.description}</p>`
+        afiicheobjet.appendChild(divobjet)
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+})
+*/
