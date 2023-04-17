@@ -1,49 +1,65 @@
-
 //les categories
 //intercepter l'element
 const categories = document.getElementById("categorie")
 const categoriesList = document.createElement("div")
-    categoriesList.classList.add('classbloccategories')
-    categories.appendChild(categoriesList)
-    const tous = document.createElement('p')
-    tous.innerHTML = 'Tous'
-    tous.classList.add('classobjets')
-    tous.setAttribute('id', 'idtous')
-    categoriesList.appendChild(tous)
+  categoriesList.classList.add('classbloccategories')
+  categories.appendChild(categoriesList)
+  const tous = document.createElement('p')
+  tous.innerHTML = 'Tous'
+  tous.classList.add('classobjets','filtre')
+  tous.setAttribute('id', 'idtous')
+  tous.setAttribute('data-category','Tous')
+  categoriesList.appendChild(tous)
+
 //fetch get recuperer
-fetch('http://localhost:5678/api/categories')
-//on veut recuperer une response en json
-  .then(Response => Response.json())
-  .then(data => {
-    //boucle
-    data.forEach(category => {
-      const divcategorie = document.createElement("p")
-      if(category.name === "Objets"){
-        divcategorie.classList.add('classobjets')
-        divcategorie.setAttribute('id','idobjets')
-        divcategorie.textContent = category.name
-        divcategorie.dataset = 'Objets'
-        categoriesList.appendChild(divcategorie)
-      }else if(category.name === "Appartements"){
-        divcategorie.classList.add('classappartements')
-        divcategorie.setAttribute('id' , 'idappartements')
-        divcategorie.dataset = 'Appartements'
-        divcategorie.textContent = category.name
-        categoriesList.appendChild(divcategorie)
-      }else if(category.name === "Hotels & restaurants"){
-        divcategorie.classList.add('classhotel')
-        divcategorie.setAttribute('id' , 'idhotels')
-        divcategorie.textContent = category.name
-        divcategorie.dataset = 'Hotels & restaurants'
-        categoriesList.appendChild(divcategorie)
-      }
-  })
-  })
-  .catch(error => {
-    console.error(error)
-  })
+async function getCategories(){
+  try{
+    const response = await fetch('http://localhost:5678/api/categories')
+    const categories = await response.json();
+    return categories;
+ }catch(err){
+   console.error(err); 
+ }
+}
 
-
+getCategories().then(categories=>{
+  categories.forEach(category => {
+    const divcategorie = document.createElement("p")
+    if(category.name === "Objets"){
+      divcategorie.classList.add('classobjets','filtre')
+      divcategorie.setAttribute('id','idobjets')
+      divcategorie.setAttribute('data-category','Objets')
+      divcategorie.textContent = category.name
+      categoriesList.appendChild(divcategorie)
+    }else if(category.name === "Appartements"){
+      divcategorie.classList.add('classappartements','filtre')
+      divcategorie.setAttribute('id','idappartements')
+      divcategorie.setAttribute('data-category','Appartements')
+      divcategorie.textContent = category.name
+      categoriesList.appendChild(divcategorie)
+    }else if(category.name === "Hotels & restaurants"){
+      divcategorie.classList.add('classhotel','filtre')
+      divcategorie.setAttribute('id','idhotel')
+      divcategorie.setAttribute('data-category','Hotels & restaurants')
+      divcategorie.textContent = category.name
+      categoriesList.appendChild(divcategorie)
+    }
+  }) 
+  });
+  //intercepter les click pour afficher les images correspondantes
+  categoriesList.addEventListener('click', (event) => {
+    if (event.target.hasAttribute('data-category')) {
+      const category = event.target.getAttribute('data-category');
+      const works = document.querySelectorAll('.gallery div');
+      works.forEach((work) => {
+        if (work.getAttribute('data-category') !== category && category !== 'Tous') {
+          work.style.display = 'none';
+        } else {
+          work.style.display = 'block';
+        }
+      });
+    }
+  });
 //les images
 //intercepter l'element
 const works = document.getElementById("work")
@@ -57,6 +73,7 @@ fetch('http://localhost:5678/api/works')
     works.appendChild(divworks)
     data.forEach(work => {
       const workItem = document.createElement("div")
+      workItem.setAttribute('data-category', work.category)
       const imageElement = document.createElement("img")
       imageElement.src = work.imageUrl
       workItem.appendChild(imageElement)
@@ -73,6 +90,16 @@ fetch('http://localhost:5678/api/works')
     console.error(error)
   })
 /*
+  let filtres = document.querySelectorAll(".filtre");
+  console.log(filtres);
+  filtres.forEach(item=>{
+    item.addEventListener('click', ()=>{
+      alert(item.id);
+    })
+  })
+});
+*/
+
   const filtres = [
     {
       "id": 1,
@@ -196,60 +223,50 @@ fetch('http://localhost:5678/api/works')
       }
     }
   ]
-  */
-  /*
-//le fitre
-const idobjet = document.getElementById('idobjets')
-const afficheobjet = document.createElement('div')
-.setAttribute('id', 'afficheobjets')
-.document.getElementById('afficheobjets')
-afficheobjet.addEventListener('click', ()=>{
 
+   /*
+//intercepter les elements au click
+  const buttons = document.querySelectorAll('.filtre')
+  buttons.forEach((button) => {
+  button.addEventListener('click', (event) => {
+  const category = event.target.dataset.category
+  })
 })
-//fetch get recuperer
-fetch('http://localhost:5678/api/works')
-//on veut recuperer une response en json
-  .then(response => response.json())
-  .then(data => {
-    const dividobjet = document.createElement("div")
-    idobjet.appendChild(dividobjet)
-    data.forEach(work => {
-      const workItem = document.createElement("div")
-      const imagefiltre = document.createElement("img")
-      imageElement.src = work.imageUrl
-      workItem.appendChild(imagefiltre)
-      const nameElement = document.createElement("p")
-      nameElement.textContent = work.title
-      workItem.appendChild(nameElement)
-      const descriptionElement  = document.createElement("p")
-      descriptionElement .textContent = work.name
-      workItem.appendChild(descriptionElement)
-      divworks.appendChild(workItem)
-    })
+ // appel à une fonction pour filtrer les images selon la catégorie
+function filterImagesByCategory(category) {
+  const images = document.querySelectorAll('img');
+  images.forEach((image) => {
+    if (image.dataset.category === category || category === 'Tous') {
+      image.style.display = 'block'
+    } else {
+      image.style.display = 'none'
+    }
   })
-  .catch(error => {
-    console.error(error)
-  })
+}
 */
-/*
-const idobjet = document.getElementById('idobjets')
-idobjet.addEventListener('click', () => {
-  fetch('http://localhost:5678/api/works')
-    .then(response => response.json())
-    .then(data => {
-      // Récupérer l'élément HTML dans lequel afficher les données
-      const afiicheobjet = document.getElementById('containerobjet')
-      // Créer un élément HTML pour chaque projet et les ajouter au container
-      data.forEach(project => {
-        const divobjet = document.createElement('div')
-        divobjet.innerHTML = 
-        `<h3>${project.title}</h3>
-        <p>${project.description}</p>`
-        afiicheobjet.appendChild(divobjet)
-      })
-    })
-    .catch(error => {
-      console.error(error)
-    })
-})
+ /*
+//au click sur tous afficher les images correspondantes
+const clicktous = document.getElementById('idtous');
+clicktous.addEventListener('click', () => {
+    const allimages = document.querySelectorAll('img');
+    allimages.forEach(img => {
+      if (img.dataset.category === 'Objets') {
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+    });
+  });
+//au click sur objets afficher les images correspondantes
+  const clickobjets = document.getElementById('idobjets');
+  clickobjets.addEventListener('click', () => {
+    const allimages = document.querySelectorAll('img');
+    allimages.forEach(img => {
+      if (img.dataset.category === 'Objets') {
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+    });
+  });
 */

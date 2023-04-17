@@ -161,6 +161,12 @@ li:hover {
 	background: #1D6154;
 	color: white;
 }
+.active {
+	display: block;
+}
+.inactive {
+	display: none;
+}
 .gallery {
 	width: 100%;
 	display: grid;
