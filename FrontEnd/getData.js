@@ -11,7 +11,7 @@ const categoriesList = document.createElement("div")
   tous.setAttribute('data-category','Tous')
   categoriesList.appendChild(tous)
 
-//fetch get recuperer
+//fetch get recuperer asynchrone les categories
 async function getCategories(){
   try{
     const response = await fetch('http://localhost:5678/api/categories')
@@ -22,23 +22,24 @@ async function getCategories(){
  }
 }
 
+//function
 getCategories().then(categories=>{
   categories.forEach(category => {
     const divcategorie = document.createElement("p")
     if(category.name === "Objets"){
-      divcategorie.classList.add('classobjets','filtre')
+      divcategorie.classList.add('classBouton','filtre')
       divcategorie.setAttribute('id','idobjets')
       divcategorie.setAttribute('data-category','Objets')
       divcategorie.textContent = category.name
       categoriesList.appendChild(divcategorie)
     }else if(category.name === "Appartements"){
-      divcategorie.classList.add('classappartements','filtre')
+      divcategorie.classList.add('classBouton','filtre')
       divcategorie.setAttribute('id','idappartements')
       divcategorie.setAttribute('data-category','Appartements')
       divcategorie.textContent = category.name
       categoriesList.appendChild(divcategorie)
     }else if(category.name === "Hotels & restaurants"){
-      divcategorie.classList.add('classhotel','filtre')
+      divcategorie.classList.add('classBouton','filtre')
       divcategorie.setAttribute('id','idhotel')
       divcategorie.setAttribute('data-category','Hotels & restaurants')
       divcategorie.textContent = category.name
@@ -46,20 +47,7 @@ getCategories().then(categories=>{
     }
   }) 
   });
-  //intercepter les click pour afficher les images correspondantes
-  categoriesList.addEventListener('click', (event) => {
-    if (event.target.hasAttribute('data-category')) {
-      const category = event.target.getAttribute('data-category');
-      const works = document.querySelectorAll('.gallery div');
-      works.forEach((work) => {
-        if (work.getAttribute('data-category') !== category && category !== 'Tous') {
-          work.style.display = 'none';
-        } else {
-          work.style.display = 'block';
-        }
-      });
-    }
-  });
+
 //les images
 //intercepter l'element
 const works = document.getElementById("work")
@@ -89,18 +77,47 @@ fetch('http://localhost:5678/api/works')
   .catch(error => {
     console.error(error)
   })
+
 /*
-  let filtres = document.querySelectorAll(".filtre");
-  console.log(filtres);
-  filtres.forEach(item=>{
-    item.addEventListener('click', ()=>{
-      alert(item.id);
-    })
+//fetch get recuperer asynchrone pour les images 
+async function getFiltreImages() {
+  try {
+    const response = await fetch('http://localhost:5678/api/works')
+    const images = await response.json();
+    return images;
+  } catch (err) {
+    console.error(err);
+  }
+}
+ */
+/*
+//LES FILTRES
+//intercepter l'element
+const classBoutons = document.querySelectorAll('.classBouton');
+// le conteneur pour les résultats
+const container = document.getElementById('resultats'); 
+//boucle
+for (const allBouton of classBoutons) {
+  allBouton.addEventListener('click', () => {
+    // effacer les résultats précédents
+    container.innerHTML = '';
+    for (const parcourTableau of data) {
+      if (parcourTableau.category.name === allBouton.textContent) {
+        const divResultat = document.createElement('div');
+        const nomProduit = document.createElement('h2');
+        const description = document.createElement('p');
+        nomProduit.textContent = parcourTableau.category.name;
+        description.textContent = parcourTableau.description;
+        divResultat.appendChild(nomProduit);
+        divResultat.appendChild(description);
+        container.appendChild(divResultat);
+      }
+    }
   })
-});
+}
 */
 
-  const filtres = [
+const tableaufiltres = [
     {
       "id": 1,
       "title": "Abajour Tahina",
@@ -224,27 +241,46 @@ fetch('http://localhost:5678/api/works')
     }
   ]
 
-   /*
-//intercepter les elements au click
-  const buttons = document.querySelectorAll('.filtre')
-  buttons.forEach((button) => {
-  button.addEventListener('click', (event) => {
-  const category = event.target.dataset.category
-  })
-})
- // appel à une fonction pour filtrer les images selon la catégorie
-function filterImagesByCategory(category) {
-  const images = document.querySelectorAll('img');
-  images.forEach((image) => {
-    if (image.dataset.category === category || category === 'Tous') {
-      image.style.display = 'block'
-    } else {
-      image.style.display = 'none'
+/*
+//CATEGORIES
+const categories = document.querySelector('#categorie');
+categories.classList.add('classbloccategories')
+
+const butonName = [
+  {
+    name: "Tous"
+  },
+  {
+    name: "Objets"
+  },
+  {
+    name: "Appartements"
+  },
+  {
+    name: "Hotels & restaurants"
+  }
+]
+
+const classBoutons = document.querySelectorAll('.classBouton');
+for (const allBouton of classBoutons) {
+  allBouton.addEventListener('click', () => {
+    for (const parcourTableau of data) {
+      if (parcourTableau.category.name === allBouton.textContent) {
+        console.log(parcourTableau);
+      }
     }
   })
 }
-*/
- /*
+
+for (const i of butonName) {
+  const bouton = document.createElement('div');
+  const touss = document.createElement('div');
+  bouton.className = "classBouton";
+  bouton.className = "classBouton";
+  bouton.textContent = i.name;
+  categories.appendChild(bouton);
+}
+
 //au click sur tous afficher les images correspondantes
 const clicktous = document.getElementById('idtous');
 clicktous.addEventListener('click', () => {
@@ -257,16 +293,71 @@ clicktous.addEventListener('click', () => {
       }
     });
   });
-//au click sur objets afficher les images correspondantes
-  const clickobjets = document.getElementById('idobjets');
-  clickobjets.addEventListener('click', () => {
-    const allimages = document.querySelectorAll('img');
-    allimages.forEach(img => {
-      if (img.dataset.category === 'Objets') {
-        img.style.display = 'block';
-      } else {
-        img.style.display = 'none';
-      }
-    });
-  });
 */
+ /*
+// Ajoutez un événement de clic sur l'élément "Objets"
+const clickobjets = document.getElementById('idobjets')
+clickobjets.addEventListener('click', ()=> {
+  // Récupérez toutes les images
+  const images = document.querySelectorAll('.gallery > div')
+  // Itérez sur chaque image
+  images.forEach((image) => {
+    // Vérifiez si l'image correspond à la catégorie "Objets"
+    if (image.getAttribute('data-category') === 'Objets') {
+      // Si oui, affichez l'image
+      image.style.display = 'block'
+    } else {
+      // Sinon, masquez l'image
+      image.style.display = 'none'
+    }
+  })
+})
+*/
+
+/*
+// Sélectionner les images avec la catégorie "Objets"
+const objets = tableaufiltres.filter(item => item.category.name === "Objets");
+
+// Sélectionner l'élément HTML où vous souhaitez afficher les images
+const container = document.querySelector("#image-container");
+
+// Afficher chaque image dans le conteneur HTML
+objets.forEach(item => {
+  const image = document.createElement("img");
+  image.src = item.imageUrl;
+  container.appendChild(image);
+});
+
+  let filtres = document.querySelectorAll(".filtre");
+  console.log(filtres);
+  filtres.forEach(item=>{
+    item.addEventListener('click', ()=>{
+      alert(item.id);
+    })
+  })
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
