@@ -100,35 +100,6 @@ fetch("http://localhost:5678/api/works")
     console.error(error);
   });
 
-/*
-fetch('http://localhost:5678/api/users/login')
-//connexion a la page suivante ou redirection a la page d'accueil
-const butonSubmit = document.querySelector('#submit')
-const form = document.querySelector('form');
-const emailInput = document.querySelector('#email');
-emailInput = api.users.login.email
-const passwordInput = document.querySelector('#password');
-passwordInput = api.users.login.password
-const errorDiv = document.querySelector('#error');
-
-form.addEventListener('submit', (event) => {
-  // empecher la soumission du formulaire
-  event.preventDefault(); 
-
-  // Vérifier si les informations d'utilisateur et du mot de passe sont correctes
-  const email = emailInput.value;
-  const password = passwordInput.value;
-  if (email === 'sophie.bluel@test.tld' && password === 'S0phie') {
-    // Rediriger vers la page d'accueil
-    window.location.href = 'index.html';
-  } else {
-  // Afficher un message d'erreur
-    errorDiv.textContent = 'Email ou mot de passe incorrect.';
-  }
-});
-*/
-
-
 const tableaufiltres = [
   {
     id: 1,
