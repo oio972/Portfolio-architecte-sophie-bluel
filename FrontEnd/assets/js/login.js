@@ -17,7 +17,7 @@ const passwordForget = document.getElementById('password-forget')
 //recuperer le formulaire
 const theForm = document.querySelector('form')
 //au clique verifier si l'email et le mot de passe est correct
-form.addEventListener('click', () => {
+theForm.addEventListener('click', () => {
 // vérifier si les informations d'utilisateur et du mot de passe sont correctes
   const theEmail = 'sophie.bluel@test.tld'
   const thePassword = 'S0phie'
@@ -26,6 +26,6 @@ form.addEventListener('click', () => {
    //sinon 
   } else {
   // afficher un message d'erreur
-    errorDiv.textContent = 'Email ou mot de passe incorrect.';
+  errorMessage.textContent = 'Email ou mot de passe incorrect.';
   }
 });
