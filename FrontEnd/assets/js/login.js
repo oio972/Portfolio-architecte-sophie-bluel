@@ -1,31 +1,38 @@
-//fetch get recuperer asynchrone le login
-async function getLogin() {
-    try {
-        const responseLogin = await fetch('http://localhost:5678/api/users/login')
-        const logins = await responseLogin.json()
-        return logins
-    } catch (err) {
-        console.error(err)
-    }
-}
-//recuperer les elements
-const logins = document.getElementById('login')
-const emails = document.getElementById('email')
-const passwords = document.getElementById('password')
-const errorMessage = document.getElementById('error-message')
-const passwordForget = document.getElementById('password-forget')
-//recuperer le formulaire
-const theForm = document.querySelector('form')
-//au clique verifier si l'email et le mot de passe est correct
-theForm.addEventListener('click', () => {
-// vérifier si les informations d'utilisateur et du mot de passe sont correctes
-  const theEmail = 'sophie.bluel@test.tld'
-  const thePassword = 'S0phie'
-  //condition login si c'est OK rediriger vers la page d'accueil index.html
-  if (theEmail === 'sophie.bluel@test.tld' && thePassword === 'S0phie') {
-   //sinon 
+
+//recuperer le formulaire et le message d'erreur
+const loginForm = document.getElementById('loginForm');
+const error = document.getElementById('error-message');
+//évenement au remplissage du formulaire (async)
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  // Récupérer les informations de connexion du formulaire
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  // Envoyer les informations de connexion à l'API pour authentification
+  const response = await fetch('http://localhost:5678/api/users/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  });
+//Condition
+  if (response.status === 200) {
+    // Récupérer le jeton d'authentification depuis la réponse de l'API
+    const data = await response.json();
+    console.log(data) 
+
+    // Enregistrer le jeton d'authentification dans le stockage local
+    sessionStorage.setItem('token', data.token);
+    sessionStorage.setItem('userId', data.userId);
+
+    // redirige l'utilisateur vers la page d'accueil  
+    window.location.href = 'index.html';
+//Sinon
   } else {
-  // afficher un message d'erreur
-  errorMessage.textContent = 'Email ou mot de passe incorrect.';
+    // Afficher un message d'erreur si les informations de connexion sont fausses
+    error.textContent = "Nom d'utilisateur ou mot de passe incorrect.";
   }
 });
+

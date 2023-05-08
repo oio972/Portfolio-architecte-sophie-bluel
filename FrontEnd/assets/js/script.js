@@ -1,3 +1,5 @@
+const logins = document.querySelector('.login')
+const logouts = document.querySelector('.logout')
 //fetch get recuperer asynchrone les categories
 async function getCategories() {
   try {
@@ -229,3 +231,42 @@ const tableaufiltres = [
     },
   },
 ];
+const logMasters = document.createElement('div')
+const modeEdition = document.createElement('div')
+const publierLesChangements = document.createElement('div')
+const mesProjets = document.querySelector('.mesProjetModifier')
+const mesProjets1 = document.createElement('p')
+const photoSophieBluels = document.getElementById('photoSophieBluel')
+const photoSophieBluels1 = document.createElement('p')
+const displayLogoutElement = function(){
+if(sessionStorage.getItem('token') != null && sessionStorage.getItem('userId') != null){
+     // l'utilisateur est connecté
+    logins.style.display = 'none'
+    logouts.style.display = 'block'
+    logMasters.classList.add('logMaster')
+    modeEdition.innerHTML = "<i class = 'fa-regular fa-pen-to-square'></i> Mode édition"
+    modeEdition.classList.add('modeEdition')
+    logMasters.appendChild(modeEdition)
+    publierLesChangements.innerHTML = "publier les changements"
+    document.body.prepend(logMasters)
+    publierLesChangements.innerHTML = 'publier les changements'
+    publierLesChangements.classList.add('publierLesChangements')
+    logMasters.appendChild(publierLesChangements)
+    mesProjets1.innerHTML = "<i class = 'fa-regular fa-pen-to-square'></i> modifier"
+    mesProjets1.classList.add('mesProjetModifier')
+    mesProjets.appendChild(mesProjets1)
+    photoSophieBluels1.innerHTML = "<i class = 'fa-regular fa-pen-to-square'></i> modifier"
+    photoSophieBluels1.classList.add('penModifier')
+    photoSophieBluels.appendChild(photoSophieBluels1)
+}else{
+    logins.style.display = 'block'
+    logouts.style.display = 'none'
+}
+}
+displayLogoutElement();
+//deconnexion au click logout
+logouts.addEventListener('click', () => {
+  sessionStorage.removeItem('token');
+  window.location.href = 'login.html';
+});
+
