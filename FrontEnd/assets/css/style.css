@@ -46,47 +46,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-a {
-	text-decoration: none;
-	color: black;
-}
-/*quand l'utilisateur est connecté*/
-.logMaster {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 20px solid black;
-	background: black;
-}
-.modeEdition {
-	color: white;
-}
-.publierLesChangements {
-	background-color: white;
-	border-radius: 20px;
-	padding: 5px;
-	width: 180px;
-	text-align: center;
-	margin-left: 10px;
-	color: black;
-}
-.penModifier {
-	margin: 10px 0 0 50px;
-}
-.mesProjetModifier {
-	display: flex;
-	align-items: center;
-	margin: 0 0 20px 20px;
-}
-/*login et logout*/
-.login {
-	text-decoration: none;
-	color: black;
-}
-.logout {
-	text-decoration: none;
-	display: none;
-}
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -99,17 +58,10 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
-.contact, .projets {
-	text-decoration: none;
-	color: black;
-}
 section {
 	margin: 50px 0
 }
-.indexProjets {
-	text-decoration: none;
-	color: black;
-}
+
 h1{
 	display: flex;
 	flex-direction: column;
@@ -118,15 +70,13 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
+
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
-.sophieBluel {
-	text-decoration: none;
-}
+
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -170,40 +120,9 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-/*mes projets*/
-.mesProjetModifier {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.iconeMesProjets {
-	margin: 0 0 30px 20px;
-}
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
-}
-.classbloccategories {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	width: 500px;
-	margin: 0 0 30px 230px;
-}
-.filtre {
-	border: 1px solid #1D6154;
-	border-radius: 60px;
-	padding: 5px;
-}
-.filtre:hover {
-	background: #1D6154;
-	color: white;
-}
-.active {
-	display: block;
-}
-.inactive {
-	display: none;
 }
 .gallery {
 	width: 100%;
@@ -213,12 +132,13 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-img {
+.gallery img {
 	width: 100%;
+
 }
 #contact {
 	width: 50%;
-	margin: auto;
+margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -264,9 +184,309 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
-#error {
+
+/* boite modale */
+.container-btn {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.container-btn button {
+	padding: 8px 20px 8px 20px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	background-color: transparent;
+	font-family: 'Syne';
+	font-size: 16px;
+	color: #1D6154;
+}
+
+.button-selected {
+	background-color: #1D6154!important;
+	color: white!important;
+}
+
+nav a {
+	text-decoration: none;
+	color: black;
+}
+
+.login {
+	padding-top: 100px;
+	padding-bottom: 300px;
+}
+
+#password-forget {
+	text-decoration: underline;
+}
+
+#error-message {
+    color: red;
+	margin-bottom: 25px;
+}
+
+#loginButton {
+	font-size: 16px;
+	margin-left: 10px;
+	margin-right: 5px;
+	font-size: 16.8px;
+}
+
+#projetsButton {
+	font-size: 16.8px;
+}
+
+.editor-bar {
+	display: flex;
+	justify-content: center;
+	color: white;
+	background-color: black;
+	height: 60px;
+	font-size: 16px;
+}
+
+.editor-bar p {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.editor-bar span {
+	background-color: white;
+	color: black;
+	border-radius: 60px;
+	padding: 10px 20px 10px 20px;
+	margin-left: 10px;
+}
+
+.editor-bar i {
+	margin-right: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#modifier-projet-container-one {
+	display: flex;
+	margin-bottom: 25px;
+}
+
+#modifier-projet-container-two {
+	display: flex;
+	margin-left: 60px;
+	margin-top: 10px;
+}
+
+.mesProjets {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+}
+
+#modifier-projet-container-three {
+	display: flex;
+	margin-top: 10px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	font-size: 16px;
+}
+
+.fa-pen-to-square {
+	margin-right: 10px;
+}
+
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper {
+	position: relative;
+	overflow: auto;
+	width: 600px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	padding: 40px 100px 40px 100px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#titlemodal {
+	font-size: 26px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 40px;
+}
+
+.fa-xmark {
+	margin-right: 20px;
+}
+
+.js-modal-close {
+	position: absolute;
+	top: 20px;
+	right: 7px;
+	font-size: 23px;
+}
+
+.js-modal-close-two {
+	position: absolute;
+	top: 20px;
+	right: 7px;
+	font-size: 23px;
+}
+
+.add-photo {
+	padding: 10px;
+	border: none;
+	display: flex;
+	justify-content: center;
+}
+
+.delete-galery {
+	font-family: 'Syne';
+	display: flex;
+	justify-content: center;
+	color: #D65353;
+}
+
+.projets-modal {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #B3B3B3;
+}
+
+.gallery-modal {
+	position: relative;
+	display: flex;
+	flex-direction: column-reverse;
+	width: 19%;
+	gap: 4px;
+	margin-bottom: 10px;
+}
+
+.gallery-modal img {
+	width: 100%;
+}
+
+.fa-trash-can {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	color: white;
+	padding: 4px;
+	background-color: black;
+	border-radius: 2px;
+}
+
+.js-modal-return {
+	position: absolute;
+	top: 20px;
+	left: 27px;
+	font-size: 23px;
+}
+
+.modal-form {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #B3B3B3;
+	gap: 10px;	
+}
+
+.modal-form > input {
+	height: 51px;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+	margin-bottom: 20px;
+}
+
+.modal-form > select {
+	font-family: 'Work Sans';
+	height: 51px;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+	margin-bottom: 20px;
+	padding-left: 20px;
+}
+
+
+#valider-photo {
+	background: #A7A7A7;
+	border-radius: 60px;
+	padding: 10px 140px 10px 140px;
+	border: none;
+	display: flex;
+	justify-content: center;
+}
+
+.select-photo {
+	background: #E8F1F7;
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0px 120px 0px 120px;
+	margin-bottom: 30px;
+}
+
+.select-photo > i {
+	padding-top: 20px;
+	color: #B9C5CC;
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+.file-upload {
+	background: #CBD6DC;
+	border-radius: 50px;
+	padding: 10px 30px 10px 30px;
+	margin-top: 20px;
+	margin-bottom: 7px;
 	text-align: center;
 }
-.loginMentionsLegales {
-	margin-top: 300px;
+    
+#photo-input {
+	display: none;
+} 
+
+#title-photo {	
+	font-family: 'Work Sans';
+	padding-left: 20px;
+}
+
+.select-photo > p {
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.valid {
+	color: green;
+}
+
+#photo-input > label {
+	width: 30%;
+}
+
+#error-message-modal {
+	color: red;
+	margin-bottom: 10px;
 }
