@@ -321,7 +321,7 @@ a {
 	border-radius: 10px;
 }
 
-#titlemodal {
+.titlemodal {
 	font-size: 26px;
 	display: flex;
 	justify-content: center;

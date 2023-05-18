@@ -228,7 +228,7 @@ function createFilter(catTravaux, travaux, cats) {
         // Définir la source de l'image sur le contenu du fichier chargé
         image.src = reader.result;
         // Définir la largeur de l'image à 40%
-        image.style.width = '40%';
+        image.style.width = '150px';
         image.style.height = '200px'
         // Cacher la div pour la sélection de la photo
         selectPhotoDiv.style.display = 'none';
@@ -238,6 +238,7 @@ function createFilter(catTravaux, travaux, cats) {
         imageFormDisplay.style.justifyContent = 'center'
         // Vider le contenu précédent de la div
         imageFormDisplay.innerHTML = '';
+      
         // Ajouter l'image à la div
         imageFormDisplay.appendChild(image);
       });
@@ -282,7 +283,7 @@ function createFilter(catTravaux, travaux, cats) {
       // Envoie les données au serveur via une requête POST avec fetch
       fetch('http://localhost:5678/api/works', {
         method: 'POST',
-        headers: {
+        headers: { 
           'Accept': 'application/json',
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         },

@@ -17,9 +17,9 @@
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<a href="index.html"><li id="projetsButton">projets</li></a>
+			<li><a href="index.html" id="projetsButton">projets</a></li>
 			<li>contact</li>
-			<a href="login.html"><li id="loginButton">login</li></a>
+			<li><a href="login.html" id="loginButton">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -63,7 +63,7 @@
 	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display:none;" >
 		<div class="modal-wrapper js-modal-stop" id="js-modal-first">
 			<a href="#"><i class="fa-solid fa-xmark js-modal-close"></i></a>
-			<p id="titlemodal">Galerie photo</p>
+			<p id="titlemodal" class="titlemodal">Galerie photo</p>
 			<div class="projets-modal"></div>
 			<input class="add-photo" type="submit" value="Ajouter une photo">
 			<p class="delete-galery">Supprimer la galerie</p>
@@ -71,7 +71,7 @@
 		<div class="modal-wrapper js-modal-stop-two" id="js-modal-add-project" style="display:none;">
 			<a href="#"><i class="fa-solid fa-xmark js-modal-close-two"></i></a>
 			<a href="#"><i class="fa-solid fa-arrow-left js-modal-return"></i></a>
-			<p id="titlemodal">Ajout photo</p>
+			<p class="titlemodal">Ajout photo</p>
 			<form class="modal-form">
 				<div class="select-photo">
 					<i class="fa-sharp fa-regular fa-image"></i>
@@ -84,7 +84,7 @@
 				<input type="text" name="title" id="title-photo">
 				<label for="category">Catégorie</label>
 				<select id="category" name="category">
-					<option value="default"></option>
+					<option value="default" label="Sélectionnez une option par défaut"></option>
 					<option value="1">Objets</option>
 					<option value="2">Appartements</option>
 					<option value="3">Hôtels & restaurants</option>
