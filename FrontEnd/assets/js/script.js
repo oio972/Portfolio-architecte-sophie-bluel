@@ -209,7 +209,7 @@ function createFilter(catTravaux, travaux, cats) {
       // Ajout de l'élément de travail à la galerie modale
       modalWorksContainer.appendChild(item)
     }
-
+    //PHOTO "Ajout photo"
     // Sélectionner l'élément input pour les fichiers
     const photoInput = document.getElementById('photo-input');
     // Sélectionner la div pour afficher la photo sélectionnée
@@ -229,7 +229,7 @@ function createFilter(catTravaux, travaux, cats) {
         image.src = reader.result;
         // Définir la largeur de l'image à 40%
         image.style.width = '40%';
-        image.style.height = '150px'
+        image.style.height = '200px'
         // Cacher la div pour la sélection de la photo
         selectPhotoDiv.style.display = 'none';
         // Sélectionner la div pour afficher l'image
