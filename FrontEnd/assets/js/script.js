@@ -16,7 +16,6 @@ async function fetchCaterories() {
   const data = await (await (fetch("http://localhost:5678/api/categories"))).json();
   return data
 }
-
 // Création des éléments HTML des données extraites :
 function appendWork(travaux) {
   // On vide le contenu précédent de l'élément divGallery
@@ -82,8 +81,7 @@ function createFilter(catTravaux, travaux, cats) {
   filterContainer.append(button)
 }
 
-// Permet d'afficher les travaux et les filtres sur l'index lorsque l'utilisateur est déconnecté
-(async () => {
+  async function laFonction() {
   // On attend de récupérer les travaux et les catégories depuis le serveur
   let travaux = await fetchTravaux();
   let categoriesTravaux = await fetchCaterories();
@@ -173,7 +171,7 @@ function createFilter(catTravaux, travaux, cats) {
         firstModal.style.display = null;
       });
     }
-
+    //PHOTO BOITE MODALE FETCH DELETE
     // Fonction pour créer un élément de travail dans la galerie modale
     const modalWorkFactory = function (work) {
       let item = document.createElement('div')
@@ -183,6 +181,7 @@ function createFilter(catTravaux, travaux, cats) {
       // Création de l'élément image
       const image = document.createElement('img');
       image.setAttribute('src', work.imageUrl);
+      image.style.height = '200px'
       // Création de l'icône de suppression
       const removeWorkIcon = document.createElement('i')
       removeWorkIcon.classList.add('fa-solid', 'fa-trash-can')
@@ -219,6 +218,7 @@ function createFilter(catTravaux, travaux, cats) {
     photoInput.addEventListener('change', function (event) {
       // Récupérer le fichier sélectionné
       const file = event.target.files[0];
+      console.log(file);
       // Créer un objet FileReader
       const reader = new FileReader();
       // Ajouter un écouteur d'événement pour le chargement du fichier
@@ -229,10 +229,13 @@ function createFilter(catTravaux, travaux, cats) {
         image.src = reader.result;
         // Définir la largeur de l'image à 40%
         image.style.width = '40%';
+        image.style.height = '150px'
         // Cacher la div pour la sélection de la photo
         selectPhotoDiv.style.display = 'none';
         // Sélectionner la div pour afficher l'image
         const imageFormDisplay = document.querySelector('.imageFormDisplay')
+        imageFormDisplay.style.display = 'flex'
+        imageFormDisplay.style.justifyContent = 'center'
         // Vider le contenu précédent de la div
         imageFormDisplay.innerHTML = '';
         // Ajouter l'image à la div
@@ -267,13 +270,15 @@ function createFilter(catTravaux, travaux, cats) {
       if (!image || !titre || !categorie) {
         errorMessageModal.textContent = 'Veuillez remplir tous les champs obligatoires.';
         return;
+      } else {
+        errorMessageModal.style.display = 'none'
       }
 
       // Crée un objet FormData pour envoyer les données au serveur
       const formData = new FormData();
       formData.append('image', image);
       formData.append('title', titre);
-      formData.append('category', +categorie);
+      formData.append('category', categorie);
       // Envoie les données au serveur via une requête POST avec fetch
       fetch('http://localhost:5678/api/works', {
         method: 'POST',
@@ -339,16 +344,22 @@ function createFilter(catTravaux, travaux, cats) {
     // Création du lien "modifier"
     const editLink = document.createElement('a')
     const editIcon = document.createElement('i')
-    editIcon.classList.add('fa-regular', 'fa-pen-to-square') // Ajout de classes pour l'icône
-    editLink.append(editIcon, 'modifier') // Ajout de l'icône et du texte "modifier" au lien
-    editLink.href = '#' // Définition du lien
-    editLink.addEventListener('click', async function () { // Ajout d'un événement sur le clic du lien
-      fetchTravaux().then(data => { // Appel de la fonction qui renvoie une promesse résolue avec des données
-        openModal(data); // Appel de la fonction pour ouvrir la modal avec les données récupérées
+    // Ajout de classes pour l'icône
+    editIcon.classList.add('fa-regular', 'fa-pen-to-square') 
+    // Ajout de l'icône et du texte "modifier" au lien
+    editLink.append(editIcon, 'modifier') 
+    // Définition du lien
+    editLink.href = '#' 
+    // Ajout d'un événement sur le clic du lien
+    editLink.addEventListener('click', async function () { 
+      // Appel de la fonction qui renvoie une promesse résolue avec des données
+      fetchTravaux().then(data => {
+      // Appel de la fonction pour ouvrir la modal avec les données récupérées 
+        openModal(data); 
       })
     })
-
-    projectContainerEdit.appendChild(editLink) // Ajout du lien au conteneur correspondant
+    // Ajout du lien au conteneur correspondant
+    projectContainerEdit.appendChild(editLink) 
 
     // Clone le lien pour le réutiliser avec un autre conteneur
     const editLinkClone1 = editLink.cloneNode(true);
@@ -379,4 +390,5 @@ function createFilter(catTravaux, travaux, cats) {
   } else {
     loginButton.innerText = 'login';
   }
-})();
+}
+laFonction();
